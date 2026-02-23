@@ -16,14 +16,15 @@ connection.query(sql,(err, results)=>{
 function show (req,res){
 const {id} = req.params;
 //prepariasmo la query per la richiesta
-const moviesql ='SELECT * FROM reviews WHERE moovie_id = ?';
+const moviesql ='SELECT * FROM movie WHERE moovie.id = ?';
+const reviesMovie = 'SELECT * FROM reviews WHERE moovie_id = ?';
 //chiamata db principale
 connection .query(moviesql,[id],(err,movieresult)=>{
     if(err)return res.status(500).json({error:'Dtabase is failed'});
     if(movieresult.length===0)return res.status(404).json({error:'movie is not found'})
         const movie = movieresult[0];
     
-connection .query(moviesql,[id],(err, results)=>{
+connection .query(reviesMovie,[id],(err, results)=>{
     if (err) return res.status (500).json ({error:'database query is failed'});
     if(results.length===0) return res.satus (404).json({error :'movie is not found '})
 })
