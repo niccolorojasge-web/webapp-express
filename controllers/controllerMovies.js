@@ -16,19 +16,24 @@ connection.query(sql,(err, results)=>{
 function show (req,res){
 const {id} = req.params;
 //prepariasmo la query per la richiesta
-const moviesql ='SELECT * FROM movie WHERE moovie.id = ?';
+const moviesql ='SELECT * FROM movies WHERE moovie.id = ?';
 const reviesMovie = 'SELECT * FROM reviews WHERE moovie_id = ?';
 //chiamata db principale
 connection .query(moviesql,[id],(err,movieresult)=>{
     if(err)return res.status(500).json({error:'Dtabase is failed'});
     if(movieresult.length===0)return res.status(404).json({error:'movie is not found'})
+        
         const movie = movieresult[0];
     
-connection .query(reviesMovie,[id],(err, results)=>{
-    if (err) return res.status (500).json ({error:'database query is failed'});
-    if(results.length===0) return res.satus (404).json({error :'movie is not found '})
+connection .query(reviesMovie,[id],(err, resultsReview )=>{
+ if (err) return res.status (500).json ({error:'database query is failed'});
+   // saviamo le reviews in una cost
+ const rewiesArr = resultsReview    
+// aggiungiamo a oggetto book la prop per le reviews
+  movie.results = rewiesArr
+
+  res.json(movie)
 })
-res.json(movie)
 })
 }
 module.exports = {index, show};
