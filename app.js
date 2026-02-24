@@ -14,7 +14,7 @@ app.get('/api', (req, res) => {
     res.send("<h1>server del mio blog</h1>");
 });
 
-app.use (corse({
+app.use (cors({
     origin :'http://localhost:5173'
 }))
 app.use('/api/Movie',routerMovie)
