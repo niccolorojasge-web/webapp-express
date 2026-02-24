@@ -17,7 +17,7 @@ function show(req, res) {
     const { id } = req.params;
     //prepariasmo la query per la richiesta
     const moviesql = 'SELECT * FROM movies WHERE moovie.id = ?';
-    const reviesMovie = 'SELECT * FROM reviews WHERE moovie_id = ?';
+    const reviesMovie = 'SELECT * FROM review WHERE moovie_id = ?';
     //chiamata db principale
     connection.query(moviesql, [id], (err, movieresult) => {
         if (err) return res.status(500).json({ error: 'Dtabase is failed' });

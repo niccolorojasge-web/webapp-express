@@ -1,7 +1,7 @@
 const express = require('express');
 const routerMovie = require ('./routers/routerMovie')
 const notFound = require('./middleware/notFound')
-
+const cors = require("cors")
 const errorsHandler = require('./middleware/errorsHandler');
 
 const app = express();
@@ -14,7 +14,9 @@ app.get('/api', (req, res) => {
     res.send("<h1>server del mio blog</h1>");
 });
 
-
+app.use (corse({
+    origin :'http://localhost:5173'
+}))
 app.use('/api/Movie',routerMovie)
 
 app.use(errorsHandler);
