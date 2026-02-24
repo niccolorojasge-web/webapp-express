@@ -8,7 +8,13 @@ function index(req, res) {
     //eseguiamo la query
     connection.query(sql, (err, results) => {
         if (err) return res.status(500).json({ error: 'Database query failed' });
-        res.json(results)
+        const films = results.map (film =>{
+            return {
+                ...film,
+                image:req.imagePath + film.image
+            }
+        })
+        res.json(films)
     })
 }
 
@@ -24,6 +30,7 @@ function show(req, res) {
         if (movieresult.length === 0) return res.status(404).json({ error: 'movie is not found' })
 
         const movie = movieresult[0];
+        movie.image = req.imagePath + movie.image
 
         connection.query(reviesMovie, [id], (err, resultsReview) => {
             if (err) return res.status(500).json({ error: 'database query is failed' });
