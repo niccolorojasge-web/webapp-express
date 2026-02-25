@@ -8,8 +8,10 @@ const controllerMovies = require('../controllers/controllerMovies')
 //rotta index
 router.get('/', controllerMovies.index);
 
-
-//rotta index
+//rotta show
 router.get('/:id', controllerMovies.show);
+
+//rotta di creazione recensione
+router.post('/:id/reviews', controllerMovies.storeReview)
 
 module.exports = router;

@@ -43,4 +43,20 @@ function show(req, res) {
         })
     })
 }
-module.exports = { index, show };
+
+//logica funzione store
+function storeReview (req, res){
+//recuperiamo parametro dinamico 
+    const {id} = req.params
+//recuperiamo le info del body della req 
+const {name, text, vote}=req.body
+//settiamo sql
+const sql = 'INSERT INTO reviews (text, name, vote, movie_id ) VALUES(?, ?, ?, ?)'
+
+connection.query(sql,[text, name, vote, id],(err,results)=>{
+    if(err) return res.status(500).json ({error:'database is failed'})
+        res.status(201)
+    res.json ({message:'review added', id: results.insertId})
+})
+}
+module.exports = { index, show, storeReview };

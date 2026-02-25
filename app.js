@@ -8,7 +8,7 @@ const imagePath = require('./middleware/imagePath')
 const app = express();
 const port = process.env.PORT;
 
-//app.use(express.json())
+app.use(express.json())
 //app.use(express.static('public'));
 app.use(imagePath)
 
